@@ -227,7 +227,6 @@ function clearShapes(text, message) {
 	return text;
 }
 
-// client.login('Mzc2MDkyNjYyOTQxNDgzMDI4.DncKqA.77RxMsJTTR6ChGpto0-J-IjWBWg');
 
 // // Extract the required classes from the discord.js module
 // const { Client, MessageAttachment, Attachment } = require('discord.js');
