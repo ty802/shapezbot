@@ -157,3 +157,43 @@ registerCustomShape({
 //     	begin();
 //     },
 // });
+
+
+
+registerCustomShape({
+    id: "leaf",
+    code: "F",
+    ...customDefaults,
+    draw: "M 0 0 v 0.5 a 0.5 0.5 0 0 0 0.5 0.5 h 0.5 v -0.5 a 0.5 0.5 0 0 0 -0.5 -0.5 z",
+})
+
+
+registerCustomShape({
+    id: "diamond",
+    code: "D",
+    ...customDefaults,
+    draw: "M 0 0 l 0 0.5 0.5 0.5 0.5 0 0 -0.5 -0.5 -0.5 z",
+
+})
+
+registerCustomShape({
+    id: "mill",
+    code: "M",
+    ...customDefaults,
+    draw: "M 0 0 L 0 1 1 1 Z",
+})
+
+registerCustomShape({
+    id: "halfleaf",
+    code: "H",
+    ...customDefaults,
+    draw: "100 M 0 0 L 0 100 A 45 45 0 0 0 30 30 A 45 45 0 0 0 100 0 Z",
+})
+
+
+registerCustomShape({
+    id: "yinyang",
+    code: "Y",
+    ...customDefaults,
+    draw: "100 M 0 50 A 50 50 0 1 1 85 85 A 121 121 0 0 1 -85 85 A 50 50 0 0 0 0 50",
+})
