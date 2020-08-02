@@ -59,6 +59,7 @@ export const allShapeData = {
         distChance: 0,
         maxChance: 100,
         draw: "M 0 0 v 1 h 1 v -1 z",
+        layer: 0,
     },
     circle: {
         id: "circle",
@@ -71,6 +72,7 @@ export const allShapeData = {
         distChance: 2,
         maxChance: 100,
         draw: "M 0 0 l 1 0 a 1 1 0 0 1 -1 1 z ",
+        layer: 0,
     },
     star: {
         id: "star",
@@ -83,6 +85,7 @@ export const allShapeData = {
         distChance: 1,
         maxChance: 50,
         draw: "M 0 0 L 0 0.6 1 1 0.6 0 z",
+        layer: 0,
     },
     windmill: {
         id: "windmill",
@@ -95,6 +98,7 @@ export const allShapeData = {
         distChance: 1 / 2,
         maxChance: 26,
         draw: "M 0 0 L 0 0.6 1 1 1 0 z",
+        layer: 0,
     },
 };
 
@@ -180,5 +184,6 @@ export function noSuchShape(code) {
 			context.scale(1 / 8, -1 / 8);
 			context.fillText(code || '?', 0, 0);
 		},
+        layer: 0,
 	}
 }

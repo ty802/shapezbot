@@ -291,15 +291,23 @@ function internalGenerateShapeBuffer(layers, canvas, context, w, h, dpi=1) {
 	context.fill();
 
 	for (let layerIndex = 0; layerIndex < layers.length; ++layerIndex) {
-		const quadrants = layers[layerIndex];
+		
+        const quadrants = layers[layerIndex];
+
+        let quads =
+            quadrants.map((e, i) => ({e, i}))
+            .filter(e=>e.e)
+            .map(e=>({...e.e, quadrantIndex: e.i}))
+            .sort((a, b) => (allShapeData[a.subShape] || noSuchShape(a.subShape)).layer - (allShapeData[b.subShape] || noSuchShape(b.subShape)).layer);
+
 
 		const layerScale = Math.max(0.1, 0.9 - layerIndex * 0.22);
 
-		for (let quadrantIndex = 0; quadrantIndex < 4; ++quadrantIndex) {
-			if (!quadrants[quadrantIndex]) {
+		for (let quad of quads) {
+			if (!quad) {
 				continue;
 			}
-			const {subShape, color} = quadrants[quadrantIndex];
+			const {subShape, color, quadrantIndex} = quad;
 			if (subShape == '-') {
 			    continue;
 			}
