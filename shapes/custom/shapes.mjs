@@ -17,7 +17,8 @@ export const customShapes = [];
  * @property {number} [minChance]
  * @property {number} [distChance]
  * @property {number} [maxChance]
- * @property {DrawShape} draw
+ * @property {DrawShape|string} draw
+ * @property {number} tier
  */
 
 /**
@@ -28,13 +29,14 @@ export function registerCustomShape(shapeData) {
 }
 
 let customDefaults = {
-    spawnable: true,
+    spawnable: false,
     spawnColor: "uncolored",
     maxQuarters: 4,
     minDistance: 6,
     minChance: 4,
     distChance: 1 / 3,
     maxChance: 12,
+    tier: 3,
 };
 
 registerCustomShape({
@@ -50,6 +52,7 @@ registerCustomShape({
         context.bezierCurveTo(0, 1, inner, 1, inner_center, inner_center);
         context.bezierCurveTo(1, inner, 1, 0, inner, 0);
     },
+    tier: 3,
 });
 
 registerCustomShape({
@@ -65,6 +68,7 @@ registerCustomShape({
         context.lineTo(Math.sin((Math.PI * 3) / 8), Math.cos((Math.PI * 3) / 8));
         context.lineTo(inner, 0);
     },
+    tier: 3,
 });
 
 registerCustomShape({
@@ -78,25 +82,19 @@ registerCustomShape({
         context.arcTo(0, 1, 1, 0, rad);
         context.arcTo(1, 0, 0, 0, rad);
     },
+    tier: 4,
 });
 
 registerCustomShape({
     id: "plus",
     code: "P",
     ...customDefaults,
-    draw({ dims, innerDims, layer, quad, context, color, begin }) {
-        begin({ size: 1.2, path: true, zero: true });
-        const inner = 0.4;
-        context.lineTo(1, 0);
-        context.lineTo(1, inner);
-        context.lineTo(inner, inner);
-        context.lineTo(inner, 1);
-        context.lineTo(0, 1);
-    },
+    draw: "M 0 0 L 1.1 0 1.1 0.5 0.5 0.5 0.5 1.1 0 1.1 z",
+    tier: 3,
 });
 
 registerCustomShape({
-    id: "razor",
+    id: "saw",
     code: "Z",
     ...customDefaults,
     draw({ dims, innerDims, layer, quad, context, color, begin }) {
@@ -123,6 +121,7 @@ registerCustomShape({
             inner * Math.SQRT1_2
         );
     },
+    tier: 3,
 });
 
 registerCustomShape({
@@ -145,20 +144,8 @@ registerCustomShape({
         context.rotate(-Math.PI / 4);
         context.arc(c, 0, b, PI - PI3, PI);
     },
+    tier: 4,
 });
-
-
-// registerCustomShape({
-//     id: "-",
-//     code: "-",
-//     ...customDefaults,
-//     spawnColor: "transparent",
-//     draw({ dims, innerDims, layer, quad, context, color, begin }) {
-//     	begin();
-//     },
-// });
-
-
 
 registerCustomShape({
     id: "leaf",
@@ -166,7 +153,6 @@ registerCustomShape({
     ...customDefaults,
     draw: "M 0 0 v 0.5 a 0.5 0.5 0 0 0 0.5 0.5 h 0.5 v -0.5 a 0.5 0.5 0 0 0 -0.5 -0.5 z",
 })
-
 
 registerCustomShape({
     id: "diamond",
@@ -183,14 +169,12 @@ registerCustomShape({
     draw: "M 0 0 L 0 1 1 1 Z",
 })
 
-registerCustomShape({
-    id: "halfleaf",
-    code: "H",
-    ...customDefaults,
-    draw: "100 M 0 0 L 0 100 A 45 45 0 0 0 30 30 A 45 45 0 0 0 100 0 Z",
-})
-
-
+// registerCustomShape({
+//     id: "halfleaf",
+//     code: "H",
+//     ...customDefaults,
+//     draw: "100 M 0 0 L 0 100 A 45 45 0 0 0 30 30 A 45 45 0 0 0 100 0 Z",
+// })
 
 registerCustomShape({
     id: "yinyang",
@@ -201,21 +185,28 @@ registerCustomShape({
 
     //     /** @type{CanvasRenderingContext2D} */
     //     let ctx = context;
-    //     let PI = Math.PI;
-    //     let SQRT1_2 = Math.SQRT1_2;
 
+    //     with (ctx) { with (Math) {
     //     ////////////////////////
     //     // draw mostly in [0,1]x[0,1] square
     //     // draw: "100 M 0 50 A 50 50 0 1 1 85 85 A 121 121 0 0 1 -85 85 A 50 50 0 0 0 0 50",
-    //     ctx.moveTo(0, 0.5);
-    //     ctx.arc(0.5, 0.5, 0.5, PI, PI/4);
-    //     ctx.arc(0, 0, 0.5+SQRT1_2, PI/4, PI/4+PI/2, 0);
-    //     ctx.arc(-0.5, 0.5, 0.5, 3*PI/4, 0, 1);
+    //     moveTo(0, 0.5);
+    //     arc(0.5, 0.5, 0.5, PI, PI/4)
+    //     arc(0, 0, 0.5+SQRT1_2, PI/4, PI/4+PI/2, 0)
+    //     arc(-0.5, 0.5, 0.5, 3*PI/4, 0, 1)
 
-    //     ctx.moveTo(0.6, 0.5);
-    //     ctx.arc(0.5, 0.5, 0.1, 0, 2*PI);
+    //     moveTo(0.6, 0.5)
+    //     arc(0.5, 0.5, 0.1, 0, 2*PI)
+    //     }}
 
 
-    // }, 120.71067811865477 85.35533905932738
+    // },
     draw: "120.71 M 0 50 A 50 50 0 1 1 85.355 85.355 A 120.71 120.71 0 0 1 -85.355 85.355 A 50 50 0 0 0 0 50 Z M 40 50 A 10 10 0 1 0 40 49.99 Z",
+})
+
+registerCustomShape({
+    id: "octagon",
+    code: "Y",
+    ...customDefaults,
+    draw: "M 0 0 L 0 1 0.4142 1 1 0.4142 1 0 Z",
 })
