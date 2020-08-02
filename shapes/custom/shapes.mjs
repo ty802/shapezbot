@@ -191,9 +191,31 @@ registerCustomShape({
 })
 
 
+
 registerCustomShape({
     id: "yinyang",
     code: "Y",
     ...customDefaults,
-    draw: "100 M 0 50 A 50 50 0 1 1 85 85 A 121 121 0 0 1 -85 85 A 50 50 0 0 0 0 50",
+    // draw({ dims, innerDims, layer, quad, context, color, begin }) {
+    //     begin({ size: 1/(0.5+Math.SQRT1_2), path: true });
+
+    //     /** @type{CanvasRenderingContext2D} */
+    //     let ctx = context;
+    //     let PI = Math.PI;
+    //     let SQRT1_2 = Math.SQRT1_2;
+
+    //     ////////////////////////
+    //     // draw mostly in [0,1]x[0,1] square
+    //     // draw: "100 M 0 50 A 50 50 0 1 1 85 85 A 121 121 0 0 1 -85 85 A 50 50 0 0 0 0 50",
+    //     ctx.moveTo(0, 0.5);
+    //     ctx.arc(0.5, 0.5, 0.5, PI, PI/4);
+    //     ctx.arc(0, 0, 0.5+SQRT1_2, PI/4, PI/4+PI/2, 0);
+    //     ctx.arc(-0.5, 0.5, 0.5, 3*PI/4, 0, 1);
+
+    //     ctx.moveTo(0.6, 0.5);
+    //     ctx.arc(0.5, 0.5, 0.1, 0, 2*PI);
+
+
+    // }, 120.71067811865477 85.35533905932738
+    draw: "120.71 M 0 50 A 50 50 0 1 1 85.355 85.355 A 120.71 120.71 0 0 1 -85.355 85.355 A 50 50 0 0 0 0 50 Z M 40 50 A 10 10 0 1 0 40 49.99 Z",
 })
