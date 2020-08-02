@@ -206,7 +206,7 @@ registerCustomShape({
 
 registerCustomShape({
     id: "octagon",
-    code: "Y",
+    code: "O",
     ...customDefaults,
     draw: "M 0 0 L 0 1 0.4142 1 1 0.4142 1 0 Z",
 })
