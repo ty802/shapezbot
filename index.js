@@ -14,19 +14,23 @@ client = new Client();
 
 client.on('message', message=>{
 
-    if (message.content == 'destroy shapebot') {
-        client.destroy();
-    } 
+    // if (message.content == 'destroy shapebot') {
+    //     client.destroy();
+    // } 
     try{
     _m = message
-    if (!isDev && (message.channel.name == 'spam' || message.content.includes('_dev'))) return;
-    if (isDev && message.channel.name != 'spam' && !message.content.includes('_dev')) return;
+    if (!isDev && (message.channel.name == 'bot-dev' || message.content.includes('_dev'))) return;
+    if (isDev && message.channel.name != 'bot-dev' && !message.content.includes('_dev')) return;
     console.log({guild:message.guild.name,channel:message.channel.name, content:message.content})
-    if (message.guild.name != 'Shape-test' && message.channel.name != 'shapebot' && !message.content.includes('shapebot')) return;
+    if (message.guild.id != '728969392569712670' && message.channel.name.includes('shapebot') && !message.content.includes('shapebot')) return;
     console.log({guild:message.guild.name,channel:message.channel.name, content:message.content})
     if (message.author.bot) return;
 
     if (message.content.includes('https') || message.content.includes(':eval')) return;
+
+    if (message.content.match(/(^|\s)help($|\s)/) && message.content.includes('shapebot')) {
+        return show_help(message);
+    }
 
     let text = message.content;
 
@@ -73,7 +77,18 @@ client.on('message', message=>{
     }catch(err){console.error(err)}
 }
 );
-client.login('GIMME THIS TOKEN');
+
+function show_help(message) {
+    message.channel.send(`
+**# Help:**
+   - \`[shape with :'s]\` - display shape
+   - \`[shape] [shape]\`  - display multiple shapes
+   - \`all_shapes\` - display all shapes
+   - \`all_colors\` - display all colors
+   - \`add_color( [css_ color] , [?code] )\` - add color
+   - \`try_shape( [svg_path] )\` - add shape
+\`\`\``)
+}
 
 
 
