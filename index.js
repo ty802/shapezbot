@@ -22,7 +22,7 @@ client.on('message', message=>{
     if (!isDev && (message.channel.name == 'bot-dev' || message.content.includes('_dev'))) return;
     if (isDev && message.channel.name != 'bot-dev' && !message.content.includes('_dev')) return;
     console.log({guild:message.guild.name,channel:message.channel.name, content:message.content})
-    if (message.guild.id != '728969392569712670' && !message.channel.name.includes('shapebot') && !message.content.includes('shapebot')) return;
+    if (message.guild.id != '728969392569712670' && !message.channel.name.includes('shapebot') && !message.content.match(/shapebot/i)) return;
     console.log({guild:message.guild.name,channel:message.channel.name, content:message.content})
     if (message.author.bot) return;
 
