@@ -5,6 +5,7 @@ import('./shape.mjs').then(md => {
     Object.assign(globalThis, md);
     // console.log(_md)
 })
+fs = require('fs')
 
 isDev = process.argv.includes('-dev')
 console.log({isDev})
@@ -127,7 +128,8 @@ client.on('ready', ()=>{
 }
 );
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login("token")
+let token = process.env.BOT_TOKEN || fs.readFileSync('./node_modules/token.txt')+'';
+client.login(token);
 
 
 
