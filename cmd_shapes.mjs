@@ -1,4 +1,4 @@
-import {Client, MessageAttachment}  from 'discord.js';
+import { Client, MessageAttachment } from 'discord.js';
 import Canvas from 'canvas';
 
 export * from "./shape.mjs";
@@ -32,7 +32,7 @@ function imgShapeSingle(key, typeKey, typeErr) {
     ctx.textAlign = 'start'
     ctx.textBaseline = 'top'
     if (errs && errs[0] && typeErr) {
-        ctx.fillText(errs[0].message.replace(/<[^>]*>/g,''), 0, 0, 100)
+        ctx.fillText(errs[0].message.replace(/<[^>]*>/g, ''), 0, 0, 100)
     }
     ctx.fillStyle = 'white'
     ctx.textAlign = 'end'
@@ -120,7 +120,7 @@ function imgShapeSingle(key, typeKey, typeErr) {
 //             customColors.splice(customColors.indexOf(same), 1)
 //         };
 //     }
-    
+
 //     let alike = Object.values(allColorData).find(e=>e.code==code);
 //     if (alike) {
 //         if (!text.includes('override')) {

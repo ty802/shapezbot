@@ -30,11 +30,11 @@ export let cmd_list = [
 
 function runCommand(cmd, message, data) {
 	if (cmd.type == 'fn') {
-		let {s, args} = parseArgs(data.s, cmd.fname);
+		let { s, args } = parseArgs(data.s, cmd.fname);
 		if (!args) {
 			return;
 		}
-		console.log(`running ${ cmd.id } with args [${ args }]...`)
+		console.log(`running ${cmd.id} with args [${args}]...`)
 		data.s = s;
 		return cmd.fn(message, data, args)
 	}
@@ -43,12 +43,12 @@ function runCommand(cmd, message, data) {
 		if (!m) {
 			return;
 		}
-		console.log(`running ${ cmd.id }...`)
+		console.log(`running ${cmd.id}...`)
 		data.s = data.s.replace(cmd.fname, '')
 		return cmd.fn(message, data, m[0])
 	}
 	if (cmd.type = 'always') {
-		console.log(`running ${ cmd.id }...`)
+		console.log(`running ${cmd.id}...`)
 		return cmd.fn(message, data)
 	}
 
