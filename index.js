@@ -87,17 +87,6 @@ client.on('message', message => {
 }
 );
 
-function show_help(message) {
-    message.channel.send(`
-**# Help:**
-   - \`[shape with :'s]\` - display shape
-   - \`[shape] [shape]\`  - display multiple shapes
-   - \`all_shapes\` - display all shapes
-   - \`all_colors\` - display all colors
-   - \`add_color( [css_ color] , [?code] )\` - add color
-   - \`try_shape( [svg_path] )\` - add shape
-\`\`\``)
-}
 
 
 

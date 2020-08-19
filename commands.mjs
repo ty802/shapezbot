@@ -12,9 +12,35 @@ let cmd_halt = {
 		if (
 			!message.content.match(/shapebot/i) &&
 			message.guild.id != '728969392569712670'
-		) return 'halt';
+		) {
+			return 'halt';
+		}
+		if (message.author.bot) {
+			return 'halt';
+		}
 	},
 }
+
+let cmd_help = {
+	id: 'help',
+	type: 'if',
+	condition(s) {
+		return s.match(/shapebot/i) && s.match(/help/i)
+	},
+	fn(message) {
+		message.channel.send(`
+			**# Help:**
+			   - \`ShApCoDe\` - display shape with code
+			   - \`ShOr: T: CODE:\` - display multiple shapes using shorter codes
+			   - \`all_shapes\` - display all shapes
+			   - \`all_colors\` - display all colors
+			   - \`add_color( cssColor [, code] )\` - add color
+			   - \`try_shape( svgPath )\` - add shape
+			`.trim().replace(/\n\t*/g, '\n'))
+	}
+
+}
+
 
 export let commands = {};
 
@@ -24,6 +50,7 @@ export let commands = {};
 export let cmd_list = [
 	cmd_halt,
 	cmd_display_shape,
+	cmd_help,
 ];
 
 
@@ -38,7 +65,7 @@ function runCommand(cmd, message, data) {
 		data.s = s;
 		return cmd.fn(message, data, args)
 	}
-	if (cmd.type = 'match') {
+	if (cmd.type == 'match') {
 		let m = data.s.match(cmd.fname)
 		if (!m) {
 			return;
@@ -47,9 +74,15 @@ function runCommand(cmd, message, data) {
 		data.s = data.s.replace(cmd.fname, '')
 		return cmd.fn(message, data, m[0])
 	}
-	if (cmd.type = 'always') {
+	if (cmd.type == 'always') {
 		console.log(`running ${cmd.id}...`)
 		return cmd.fn(message, data)
+	}
+	if (cmd.type == 'if') {
+		let v = cmd.condition(data.s)
+		if (!v) return;
+		console.log(`running ${cmd.id}...`)
+		return cmd.fn(message, data, v)
 	}
 
 	throw 'TODO';
