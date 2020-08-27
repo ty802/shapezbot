@@ -160,48 +160,56 @@ function imgShapeGrid(grid, size, { no_key, no_err, as_rows }) {
 //	 return new MessageAttachment(cv.toBuffer(), `shape-${keys}.png`)
 // }
 
-// function addCustomColor(text, message) {
-//	 if (!text.includes('add_color')) return text;
-//	 let m = text.match(/add_color\(\s*`([^`]+)`\s*(?:,|(?=\)))\s*(?:`([^`]+)`\s*(?:,|(?=\)))\s*)?\s*(?:`([^`]+)`\s*(?:,|(?=\)))\s*)?\)/)
-//	 if (!m) {
-//		 message.channel.send('Invalid add_color form, use as  *add_color(`color`, `?symbol`, `?name`)* , with `code` style for arguments')
-//		 return '';
-//	 }
-//	 text = text.slice(0, m.index) + text.slice(m.index + m[0].length)
-//	 console.log(text, ...m)
-//	 let hex = m[1];
-//	 let code = m[2] || m[1][0];
-//	 let id = m[3] || m[1];
 
-//	 let same = allColorData[id];
-//	 if (same) {
-//		 delete allColorData[same.id];
-//		 if (customColors.includes(same)) {
-//			 customColors.splice(customColors.indexOf(same), 1)
-//		 };
-//	 }
 
-//	 let alike = Object.values(allColorData).find(e=>e.code==code);
-//	 if (alike) {
-//		 if (!text.includes('override')) {
-//			 message.channel.send(`Error: code \`${alike.code}\` already exists on color \`${alike.id}\``)
-//			 return '';
-//		 }
-//		 delete allColorData[alike.id];
-//		 if (customColors.includes(alike)) {
-//			 customColors.splice(customColors.indexOf(alike), 1)
-//		 };
-//	 }
+export const cmd_add_color = {
+    type: 'fn',
+    id: 'add_color',
+    fname: 'add_color',
+    fn: add_color,
+    main: true,
+}
+function add_color(message, data, args) {
+    if (!args || !args.length) {
+        message.channel.send('Invalid add_color form, use as  **add_color(`color` [, `symbol`] [, `name`] )**')
+        return
+    }
+    let hex = args[0]
+    let code = args[1] || hex.split('').filter(e=>e.match(/[a-z]/).find(e=>!customColors.find(cl=>cl.code==e))
+    if (!code) {
+        message.channel.send('No free code available, use second argument')
+        return
+    }
+    let id = hex
 
-//	 registerCustomColor({ id, code, hex });
-//	 initColors();
-//	 message.channel.send(
-//		 `Added new color: { id: \`${id}\`, code: \`${code}\`, hex: \`${hex}\` }`,
-//		 attachShapeSingle(`C${code}`.repeat(4), true),
-//	 );
-//	 return text;
+	 let same = allColorData[id];
+	 if (same) {
+		 delete allColorData[same.id];
+		 if (customColors.includes(same)) {
+			 customColors.splice(customColors.indexOf(same), 1)
+		 };
+	 }
 
-// }
+	 let alike = Object.values(allColorData).find(e=>e.code==code);
+ 	 if (alike) {
+		 if (!text.includes('override')) {
+			 message.channel.send(`Error: code \`${alike.code}\` already exists on color \`${alike.id}\``)
+			 return '';
+		 }
+		 delete allColorData[alike.id];
+		 if (customColors.includes(alike)) {
+			 customColors.splice(customColors.indexOf(alike), 1)
+		 };
+	 }
+
+	 registerCustomColor({ id, code, hex });
+	 initColors();
+	 message.channel.send(
+		 `Added new color: { id: \`${id}\`, code: \`${code}\`, hex: \`${hex}\` }`,
+		 imgShapeSingle(`C${code}`.repeat(4), true, false),
+	 );
+	 return
+}
 
 // function tryShape(text, message) {
 //	 if (!text.includes('try_shape')) return text;
