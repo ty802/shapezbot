@@ -1,7 +1,7 @@
 import { parseArgs } from "./utils.mjs"
 
 
-import { cmd_display_shape, cmd_any_shape } from "./cmd_shapes.mjs";
+import { cmd_display_shape, cmd_any_shape, cmd_add_color } from "./cmd_shapes.mjs";
 
 
 
@@ -51,6 +51,7 @@ export let cmd_list = [
 	cmd_halt,
 	cmd_display_shape,
 	cmd_help,
+	cmd_add_color,
 	cmd_any_shape,
 ];
 
