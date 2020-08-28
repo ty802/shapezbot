@@ -170,6 +170,7 @@ export const cmd_add_color = {
     main: true,
 }
 function add_color(message, data, args) {
+/*
     if (!args || !args.length) {
         message.channel.send('Invalid add_color form, use as  **add_color(`color` [, `symbol`] [, `name`] )**')
         return
@@ -209,6 +210,7 @@ function add_color(message, data, args) {
 		 imgShapeSingle(`C${code}`.repeat(4), true, false),
 	 );
 	 return
+*/
 }
 
 // function tryShape(text, message) {
