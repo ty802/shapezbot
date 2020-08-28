@@ -132,6 +132,7 @@ function imgShapeGrid(grid, size, { no_key, no_err, as_rows }) {
 }
 
 
+
 export const cmd_all_shapes = {
     type: 'match',
     id: 'all_shapes',
@@ -140,8 +141,24 @@ export const cmd_all_shapes = {
     main: true,
 }
 function all_shapes(message, data, arg) {
-    data.s += ' ' + ''
+    let all_shapes = ` ${Object.values(allShapeData).map(e=>e.code).join(': ')}: `
+    data.s += all_shapes
 }
+
+
+export const cmd_all_colors = {
+    type: 'match',
+    id: 'all_colors',
+    fname: /all_colors/i,
+    fn: all_colors,
+    main: true,
+}
+function all_colors(message, data, arg) {
+    let all_colors = ` C${Object.values(allColorData).map(e=>e.code == '-' ? '-C-C-C-' : e.code).join(': C')}: `
+    data.s += all_colors
+}
+
+
 
 
 export const cmd_add_color = {
