@@ -132,32 +132,16 @@ function imgShapeGrid(grid, size, { no_key, no_err, as_rows }) {
 }
 
 
-// function attachShapeMultiple(keys, typeKey, typeErr) {
-//	 cv = Canvas.createCanvas(100 * keys.length, typeKey ? 120 : 100)
-//	 ctx = cv.getContext('2d')
-
-//	 for (let key of keys) {
-//		 ctx.save()
-//		 errs = drawShape(key, cv, ctx, 100);
-//		 ctx.restore()
-//		 ctx.font = 'bold 16px "Courier New"'
-//		 ctx.fillStyle = 'red'
-//		 ctx.textAlign = 'start'
-//		 ctx.textBaseline = 'top'
-//		 if (errs && errs[0] && typeErr) {
-//			 ctx.fillText(errs[0].message.replace(/<[^>]*>/g,''), 0, 0, 100)
-//		 }
-//		 ctx.fillStyle = 'white'
-//		 ctx.textAlign = 'end'
-//		 ctx.textBaseline = 'bottom'
-//		 if (typeKey)
-//			 ctx.fillText(key, 100, 120, 100)
-//		 ctx.translate(100, 0)
-//	 }
-//	 console.log(keys)
-//	 return new MessageAttachment(cv.toBuffer(), `shape-${keys}.png`)
-// }
-
+export const cmd_all_shapes = {
+    type: 'match',
+    id: 'all_shapes',
+    fname: /all_shapes/i,
+    fn: all_shapes,
+    main: true,
+}
+function all_shapes(message, data, arg) {
+    data.s += ' ' + ''
+}
 
 
 export const cmd_add_color = {
