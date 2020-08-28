@@ -169,7 +169,6 @@ export const cmd_add_color = {
     main: true,
 }
 function add_color(message, data, args) {
-/*
     if (!args || !args.length) {
         message.channel.send('Invalid add_color form, use as  **add_color(`color` [, `symbol`] [, `name`] )**')
         return
@@ -181,6 +180,7 @@ function add_color(message, data, args) {
         return
     }
     let id = hex
+/*
 
 	 let same = allColorData[id];
 	 if (same) {
