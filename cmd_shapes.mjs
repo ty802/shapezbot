@@ -132,8 +132,6 @@ function imgShapeGrid(grid, size, { no_key, no_err, as_rows }) {
 }
 
 
-
-
 // function attachShapeMultiple(keys, typeKey, typeErr) {
 //	 cv = Canvas.createCanvas(100 * keys.length, typeKey ? 120 : 100)
 //	 ctx = cv.getContext('2d')
@@ -257,6 +255,14 @@ function add_color(message, data, args) {
 //	 return text;
 // }
 
+export const cmd_add_shape = {
+    type: 'fn',
+    id: 'add_shape',
+    fname: 'add_shape',
+    fn: add_shape,
+    main: true,
+}
+function add_shape(message, data, args) {}
 // function addCustomShape(text, message) {
 //	 if (!text.includes('add_shape')) return text;
 //	 return text;
@@ -266,6 +272,14 @@ function add_color(message, data, args) {
 // }
 
 
+export const cmd_clear_shapes = {
+    type: 'fn',
+    id: 'clear_shapes',
+    fname: 'clear_shapes',
+    fn: clear_shapes,
+    main: true,
+}
+function clear_shapes(message, data, args) {}
 // function clearShapes(text, message) {
 // 	if (!text.includes('clear_shapes')) return text;
 // 	text = text.replace(/clear_shapes/, '')
