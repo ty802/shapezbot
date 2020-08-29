@@ -179,22 +179,14 @@ function add_color(message, data, args) {
         message.channel.send('No free code available, use second argument')
         return
     }
-    let id = hex
-
-	 let same = allColorData[id];
-	 if (same) {
-		 delete allColorData[same.id];
-		 if (customColors.includes(same)) {
-			 customColors.splice(customColors.indexOf(same), 1)
-		 };
-	 }
+    let id = hex + '/' + code
 
 	 let alike = Object.values(allColorData).find(e=>e.code==code);
  	 if (alike) {
-		 if (!text.includes('override')) {
-			 message.channel.send(`Error: code \`${alike.code}\` already exists on color \`${alike.id}\``)
-			 return '';
-		 }
+        if (!alike.id.includes('/')) {
+            message.channel.send(`can't override builtin color \`${ alike.id }\``)
+            return 'halt'
+        }
 		 delete allColorData[alike.id];
 		 if (customColors.includes(alike)) {
 			 customColors.splice(customColors.indexOf(alike), 1)
