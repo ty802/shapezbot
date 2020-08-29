@@ -37,7 +37,7 @@ export const cmd_any_shape = {
         if (!allShapesRaw || !allShapesRaw.find(e => e != '\n')) {
             return
         }
-        allShapesRaw = allShapesRaw.map(e=>e.slice(+!(e=='\n')))
+        allShapesRaw = allShapesRaw.map(e=>e=='\n'?e:e.trim())
         let row = []
         let grid = [row]
         let prev = '\n'
