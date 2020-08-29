@@ -17,7 +17,7 @@ export const cmd_display_shape = {
     main: true,
 }
 
-const rg_shape = /:?([a-zA-Z\-]*:)([a-zA-Z\-]*:?)*:?|([A-Z][a-z]|--){4}/g
+const rg_shape = /(?:\s|^)(\S*:\S*|([A-Z][a-z]|--){4})|\n/g
 
 export const cmd_any_shape = {
     type: 'always',
@@ -32,11 +32,12 @@ export const cmd_any_shape = {
         data.s = d.s
         let size = d.args ? +d.args[0] : 100
 
-        let allShapesRaw = data.s.match(/:?([a-zA-Z\-]*:)([a-zA-Z\-]*:?)*:?|([A-Z][a-z]|--){4}|\n/g)
+        let allShapesRaw = data.s.match(rg_shape)
         console.log({ s: data.s, allShapesRaw })
         if (!allShapesRaw || !allShapesRaw.find(e => e != '\n')) {
             return
         }
+        allShapesRaw = allShapesRaw.map(e=>e.slice(+!(e=='\n')))
         let row = []
         let grid = [row]
         let prev = '\n'
