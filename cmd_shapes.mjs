@@ -175,7 +175,7 @@ function add_color(message, data, args) {
         return
     }
     let hex = args[0]
-    let code = args[1] || hex.split('').filter(e=>e.match(/[a-z]/)).find(e=>!customColors.find(cl=>cl.code==e))
+    let code = args[1] || hex.split('').filter(e=>e.match(/[a-z]/)).find(e=>!Object.values(allColorData).find(cl=>cl.code==e))
     if (!code) {
         message.channel.send('No free code available, use second argument')
         return
