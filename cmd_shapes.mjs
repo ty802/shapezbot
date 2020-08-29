@@ -141,7 +141,7 @@ export const cmd_all_shapes = {
     main: true,
 }
 function all_shapes(message, data, arg) {
-    let all_shapes = ` ${Object.values(allShapeData).map(e=>e.code).join(': ')}: `
+    let all_shapes = ` ${Object.values(allShapeData).filter(e=>e.code.match(/[A-Z]/)).map(e=>e.code).join(': ')}: `
     data.s += all_shapes
 }
 
