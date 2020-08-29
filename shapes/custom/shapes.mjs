@@ -212,3 +212,14 @@ registerCustomShape({
     ...customDefaults,
     draw: "M 0 0 L 0 1 0.4142 1 1 0.4142 1 0 Z",
 })
+
+
+
+registerCustomShape({
+    id: "swastika",
+    code: "卐",
+    ...customDefaults,
+    draw: "M 0 0 L 0 1 1 1 1 0.6 0.4 0.6 0.4 0 Z",
+})
+
+
