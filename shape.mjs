@@ -287,7 +287,7 @@ function internalGenerateShapeBuffer(layers, canvas, context, w, h, dpi=1) {
 	const quadrantHalfSize = quadrantSize / 2;
 
 	context.fillStyle = "rgba(40, 50, 65, 0.1)";
-	beginCircle(ctx, 0, 0, quadrantSize * 1.15);
+	beginCircle(context, 0, 0, quadrantSize * 1.15);
 	context.fill();
 
 	for (let layerIndex = 0; layerIndex < layers.length; ++layerIndex) {
