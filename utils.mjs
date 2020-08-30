@@ -1,6 +1,6 @@
 export function parseArgs(s, fname) {
 	let g_arg_var = ['`[^`]*`', '"[^"]*"', "'[^']*'", '[^,)]*?'].slice(3)
-	let g_arg_ws = ['\\s*`[^`]*`\\s*', '\\s*"[^"]*"\\s*', "\\s*'[^']*'\\s*", '[^,]*'].slice(3)
+	let g_arg_ws = ['\\s*`[^`]*`\\s*', '\\s*"[^"]*"\\s*', "\\s*'[^']*'\\s*", '[^,)]*'].slice(3)
 	let g_arg = `(${g_arg_ws.join('|')})?`
 	let g_argnext = `(?:,${g_arg})?`
 	let g = new RegExp(`${fname}\\(\\s*${g_arg}${g_argnext.repeat(9)}\\)`, 'i')
