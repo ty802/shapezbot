@@ -254,7 +254,36 @@ export const cmd_add_shape = {
     fn: add_shape,
     main: true,
 }
-function add_shape(message, data, args) {}
+function add_shape(message, data, args) {
+        let svg = args[0]
+        let color = args[1] || 'u';
+        let draw = parseFloat(svg) ? svg.replace(parseFloat(svg), '') : svg
+        if (!new Path2D(draw).ops_.length) {
+             message.channel.send(`Colud not parse path`)
+            return '';
+        }
+        if (customShapes.length > 20) {
+            let del = customShapes.splice(6, 1)[0]
+            delete allShapeData[del.id]
+        }
+        let code = 'A';
+        while (Object.values(allShapeData).find(e=>e.code==code)) {
+            code = String.fromCharCode(code.charCodeAt(0) + 1)
+        }
+        let Z = Object.values(allShapeData).find(e=>e.code==code);
+        if (Z) {
+            if (customShapes.includes(Z)) {
+                customShapes.splice(customShapes.indexOf(Z), 1)
+            }
+            delete allShapeData[Z.id];
+        }
+        registerCustomShape({id:code, code:code, draw: svg, spawnColor: Object.values(allColorData).find(e=>e.code==color)?.id})
+        initShapes();
+        message.channel.send(
+            `Shape: { draw: \`${svg}\` }`,
+            imgShapeSingle(`${code}${color}`.repeat(4), true, false),
+        );
+}
 // function addCustomShape(text, message) {
 //	 if (!text.includes('add_shape')) return text;
 //	 return text;

@@ -5,8 +5,9 @@ import {
     cmd_display_shape,
     cmd_any_shape,
     cmd_add_color,
-    cmd_all_colors,
-    cmd_all_shapes,
+	cmd_all_colors,
+	cmd_add_shape,
+	cmd_all_shapes,
 } from "./cmd_shapes.mjs";
 
 
@@ -61,6 +62,7 @@ export let cmd_list = [
 	cmd_display_shape,
 	cmd_help,
 	cmd_add_color,
+	cmd_add_shape,
 	cmd_any_shape,
 ];
 
