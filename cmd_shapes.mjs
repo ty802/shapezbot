@@ -30,7 +30,8 @@ export const cmd_any_shape = {
 
         let d = parseArgs(data.s, 'size')
         data.s = d.s
-        let size = d.args && +d.args[0] || 100
+        let size = Math.round(d.args && +d.args[0] || 100)
+        if (!(size < 1)) size = 100;
 
         let allShapesRaw = data.s.match(rg_shape)
         console.log({ s: data.s, allShapesRaw })
