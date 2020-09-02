@@ -30,7 +30,7 @@ export const cmd_any_shape = {
 
         let d = parseArgs(data.s, 'size')
         data.s = d.s
-        let size = d.args ? +d.args[0] : 100
+        let size = d.args && +d.args[0] || 100
 
         let allShapesRaw = data.s.match(rg_shape)
         console.log({ s: data.s, allShapesRaw })
@@ -203,49 +203,50 @@ function add_color(message, data, args) {
 	 return
 }
 
-// function tryShape(text, message) {
-//	 if (!text.includes('try_shape')) return text;
-//	 let m = text.match(/try_shape\(\s*`([^`]+)`\s*(?:,|(?=\)))\s*(?:`([^`]+)`\s*(?:,|(?=\)))\s*)?\)/)
-//	 if (!m) {
-//		 message.channel.send('Invalid try_shape form, use as  *try_shape(`svg_path`, `?color_code`)* , with `code` style for arguments')
-//		 return '';
-//	 }
-//	 text = text.slice(0, m.index) + text.slice(m.index + m[0].length)
-//	 console.log(text, ...m)
-//	 let svg = m[1];
-//	 let color = m[2] || 'u';
-//	 let draw = parseFloat(svg) ? svg.replace(parseFloat(svg), '') : svg
-//	 if (!new Path2D(draw).ops_.length) {
-//		  message.channel.send(`Colud not parse path`)
-//		 return '';
-//	 }
-//	 if (customShapes.length > 20) {
-//		 let del = customShapes.splice(6, 1)[0]
-//		 delete allShapeData[del.id]
-//	 }
 
-//	 let code = 'A';
-//	 while (Object.values(allShapeData).find(e=>e.code==code)) {
-//		 code = String.fromCharCode(code.charCodeAt(0) + 1)
-//	 }
+export const cmd_try_shape = {
+    type: 'fn',
+    id: 'try_shape',
+    fname: 'try_shape',
+    fn: try_shape,
+    main: true,
+}
+function try_shape(message, data, args) {
+	 if (!args || !args[0]) {
+		 message.channel.send('Invalid try_shape form, use as  *try_shape(`svg_path`, `?color_code`)* , with `code` style for arguments')
+		 return 'halt';
+	 }
 
-//	 let Z = Object.values(allShapeData).find(e=>e.code==code);
-//	 if (Z) {
-//		 if (customShapes.includes(Z)) {
-//			 customShapes.splice(customShapes.indexOf(Z), 1)
-//		 }
-//		 delete allShapeData[Z.id];
-//	 }
-//	 registerCustomShape({id:code, code:code, draw: svg, spawnColor: Object.values(allColorData).find(e=>e.code==color)?.id})
-//	 initShapes();
+	 let svg = m[0];
+	 let color = m[1] || 'u';
+	 let draw = parseFloat(svg) ? svg.replace(parseFloat(svg), '') : svg
+	 if (!new Path2D(draw).ops_.length) {
+		  message.channel.send(`Colud not parse path`)
+		 return 'halt';
+	 }
+	 if (customShapes.length >= 20) {
+		 let del = customShapes.splice(6, 1)[0]
+		 delete allShapeData[del.id]
+	 }
+	 let code = 'A';
+	 while (Object.values(allShapeData).find(e=>e.code==code)) {
+		 code = String.fromCharCode(code.charCodeAt(0) + 1)
+	 }
+	 let Z = Object.values(allShapeData).find(e=>e.code==code);
+	 if (Z) {
+		 if (customShapes.includes(Z)) {
+			 customShapes.splice(customShapes.indexOf(Z), 1)
+		 }
+		 delete allShapeData[Z.id];
+	 }
+	 registerCustomShape({id:code, code:code, draw: svg, spawnColor: Object.values(allColorData).find(e=>e.code==color)?.id})
+	 initShapes();
 
-//	 message.channel.send(
-//		 `Shape: { draw: \`${svg}\` }`,
-//		 attachShapeSingle(`${code}${color}`.repeat(4), true),
-//	 );
-
-//	 return text;
-// }
+	 message.channel.send(
+		 `Shape: { draw: \`${svg}\` }`,
+		 imgShapeSingle(`${code}${color}`.repeat(4), true, false),
+	 );
+}
 
 export const cmd_add_shape = {
     type: 'fn',
