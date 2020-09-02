@@ -43,7 +43,7 @@ let cmd_help = {
 			   - \`all_shapes\` - display all shapes
 			   - \`all_colors\` - display all colors
 			   - \`add_color( cssColor [, code] )\` - add color
-			   - \`try_shape( svgPath )\` - add shape
+			   - \`add_shape( svgPath )\` - add shape
 			`.trim().replace(/\n\t*/g, '\n'))
 	}
 
