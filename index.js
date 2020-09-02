@@ -117,9 +117,20 @@ client.on('ready', () => {
 }
 );
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
-let token = process.env.BOT_TOKEN || fs.readFileSync('./node_modules/token.txt') + '';
+let token = process.env.BOT_TOKEN ;
+if (token == undefined){
+    console.log('trying to read token from fs');
+    try {
+      let token = fs.readFileSync('./node_modules/token.txt') + '';
+    }catch(error){
+        console.log('error while reading token from fs');
+        process.exit()
+    }
+    console.log('Attempting login with token from fs');
+}else{
+    console.log('Attempting login with token from env');
+}
 client.login(token);
-
 
 
 
@@ -175,7 +186,7 @@ function initSay() {
             return;
         }
         voice_connection = await message.member.voice.channel.join();
-        console.log(voice_connection);
+        if(isDev)console.log(voice_connection);
     }
 
     let say_index = 0;
@@ -183,10 +194,11 @@ function initSay() {
     function sayText(text, message) {
         if (!voice_connection) {
             message.channel.send('I\'m not in a voice channell!')
+            return
         }
 
         let own_index = say_index++;
-
+        
         say.export(text, voice("david"), 1, `./wav/text_${own_index}.wav`, () => {
             let s = fs.createReadStream(`./wav/text_${own_index}.wav`);
             voice_connection.play(s);
