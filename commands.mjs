@@ -44,6 +44,7 @@ let cmd_help = {
 			   - \`all_colors\` - display all colors
 			   - \`add_color( cssColor [, code] )\` - add color
 			   - \`add_shape( svgPath )\` - add shape
+			   - \`display_shape(ShApEcOdE)\` - Dimava why is this a thing ?
 			`.trim().replace(/\n\t*/g, '\n'))
 	}
 
